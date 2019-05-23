@@ -1,4 +1,15 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    if (Session["Company"] == null)
+    {
+        Response.Redirect("~/User/Login");
+
+    }
+
+    DailyInEx.Models.CompanyModel data = (DailyInEx.Models.CompanyModel)Session["Company"];
+
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,19 +27,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("DailyInEx", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Register", "Registration", "User")</li>
-                    <li>@Html.ActionLink("Login", "Login", "User")</li>
-                </ul>
+                <div class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav">
+                        <li><a href="~/User/Logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                    </ul>
+                </div>
 
             </div>
         </div>

@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout - LogedIn.cshtml";
+    if (Session["Company"] == null)
+    {
+        Response.Redirect("~/User/Login");
+
+    }
+
+    DailyInEx.Models.CompanyModel data = (DailyInEx.Models.CompanyModel)Session["Company"];
+}
+
+<h2>Welcome @data.CompanyName, to your account. </h2>
+
