@@ -22,6 +22,19 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="~/Income/Entry">Incomes<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Income Entry", "Entry", "Income")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="~/Income/Entry">Expenses<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Expense Entry", "Entry", "Expense")</li>
+                        </ul>
+                    </li>
+
                 </ul>
                 <div class="nav navbar-nav navbar-right">
                     <ul class="nav navbar-nav">
