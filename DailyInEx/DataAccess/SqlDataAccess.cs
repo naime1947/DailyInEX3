@@ -35,5 +35,13 @@ namespace DailyInEx.DataAccess
                 return cnn.Query<T>(sql).ToList();
             }
         }
+
+        public static int UpdateData(string sql)
+        {
+            using(IDbConnection cnn = new SqlConnection(GetConnectionString()))
+            {
+                return cnn.Execute(sql);
+            }
+        }
     }
 }

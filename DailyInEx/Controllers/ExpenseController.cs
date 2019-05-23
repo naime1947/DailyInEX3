@@ -48,5 +48,46 @@ namespace DailyInEx.Controllers
             ViewBag.BankList = BankManager.LoadBank();
             return View();
         }
+
+        [HttpGet]
+        public ActionResult Approve()
+        {
+            string message = "";
+            bool status = false;
+            List<ExpenseModel> expenses = ExpenseManager.LoadUnApprovedIncome();
+            if (expenses.Count()>0)
+            {
+                ViewBag.UnApprovedExpenses = expenses;
+                message = expenses.Count() + "unapproved expense found";
+                status = true;
+            }
+            else
+            {
+                message = "Nothing to approve now";
+                status = false;
+            }
+            ViewBag.Message = message;
+            ViewBag.Status = status;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Approve(FormCollection Id)
+        {
+
+            #region Getting Selected Id
+            List<int> approvedIds = new List<int>();
+            var arr = Id["Id"].ToString().Split(',');
+            foreach (string id in arr)
+            {
+                approvedIds.Add(Convert.ToInt32(id));
+            }
+            #endregion
+
+            bool isUpdated = ExpenseManager.UpdateApprovedExpense(approvedIds);
+
+            return RedirectToAction("Approve", "Expense");
+        }
+
     }
 }

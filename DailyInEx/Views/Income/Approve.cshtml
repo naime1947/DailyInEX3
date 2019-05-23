@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Approve";
+    Layout = "~/Views/Shared/_Layout - LogedIn.cshtml";
+}
+
+<h2>Approve Income</h2>
+@{
+    if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+    {
+        <form method="post">
+            <table class="table table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Approve</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Cash/Cheque</th>
+                        <th scope="col">Perticular</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 1;
+                        foreach (DailyInEx.Models.IncomeModel data in ViewBag.UnApprovedIncome)
+                        {
+                            <tr>
+                                <th scope="row">@i</th>
+                                <td><input type="checkbox" class="checkbox" name="Id" value="@data.Id" /></td>
+                                <td>@data.Date.ToShortDateString()</td>
+                                <td>@data.Amount</td>
+                                @if (data.Cash)
+                                {
+                                    <td>Cash</td>
+                                }
+                                else if (data.Cheque)
+                                {
+                                    <td>Cheque</td>
+                                }
+                                <td>@data.Particular</td>
+                            </tr>
+                            i++;
+                        }
+
+                    }
+                </tbody>
+            </table>
+            <input class="btn btn-primary btn-md" type="submit" value="Approve" />
+        </form>
+                        }
+                        else
+                        {
+        <div class="alert alert-warning"> @ViewBag.Message</div>
+    }
+}
+

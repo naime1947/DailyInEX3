@@ -21,5 +21,26 @@ namespace DailyInEx.DataManager
             }
             return false;
         }
+        public static List<IncomeModel> LoadUnApprovedIncome()
+        {
+            string sql = "select * from income where IsApproved is null";
+            return SqlDataAccess.LoadData<IncomeModel>(sql);
+        }
+
+        public static bool UpdateApprovedIncome(List<int> approvedIds)
+        {
+            string sql = "";
+            foreach (int id in approvedIds)
+            {
+                sql = "Update Income set IsApproved = 1 where Id =" + id;
+                int rowAffected =  SqlDataAccess.UpdateData(sql);
+                if (rowAffected == 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

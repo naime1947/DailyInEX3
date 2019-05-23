@@ -53,7 +53,45 @@ namespace DailyInEx.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult Approve()
+        {
+            string message = "";
+            bool status = false;
+            List<IncomeModel> incomes = IncomeManager.LoadUnApprovedIncome();
+            if (incomes.Count() > 0)
+            {
+                ViewBag.UnApprovedIncome = incomes;
+                message = incomes.Count()+"Un approved incomes found";
+                status = true;
+            }
+            else
+            {
+                message = "Nothing to approve now";
+                status = false;
+            }
+            ViewBag.Message = message;
+            ViewBag.Status = status;
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult Approve(FormCollection Id)
+        {
+           
+            #region Getting Selected Id
+            List<int> approvedIds = new List<int>();
+            var arr = Id["Id"].ToString().Split(',');
+            foreach (string id in arr)
+            {
+                approvedIds.Add(Convert.ToInt32(id));
+            }
+            #endregion
+
+            bool isUpdated = IncomeManager.UpdateApprovedIncome(approvedIds);
+    
+            return RedirectToAction("Approve", "Income");
+        }
 
 
 

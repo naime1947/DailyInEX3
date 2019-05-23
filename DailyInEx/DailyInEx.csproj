@@ -228,6 +228,8 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Income\Entry.cshtml" />
     <Content Include="Views\Expense\Entry.cshtml" />
+    <Content Include="Views\Income\Approve.cshtml" />
+    <Content Include="Views\Expense\Approve.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
