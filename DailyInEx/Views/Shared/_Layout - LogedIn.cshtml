@@ -1,14 +1,4 @@
 ﻿
-@{
-    if (Session["Company"] == null)
-    {
-        Response.Redirect("~/User/Login");
-
-    }
-
-    DailyInEx.Models.CompanyModel data = (DailyInEx.Models.CompanyModel)Session["Company"];
-
-}
 <!DOCTYPE html>
 <html>
 <head>

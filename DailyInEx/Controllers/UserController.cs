@@ -6,13 +6,16 @@ using System.Web.Mvc;
 using DailyInEx.DataManager;
 using DailyInEx.Models;
 using DailyInEx.Models.ViewModel;
+using System.Web.Security;
 
 namespace DailyInEx.Controllers
 {
     public class UserController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
+            TempData["UserName"] = TempData["UserName"];
             return View();
         }
         
@@ -56,7 +59,8 @@ namespace DailyInEx.Controllers
 
             if (data != null)
             {
-                Session["Company"] = data;
+                FormsAuthentication.SetAuthCookie(data.CompanyName, false);
+                TempData["UserName"] = data.CompanyName;
                 return RedirectToAction("Index", "User");
             }
 
@@ -67,7 +71,7 @@ namespace DailyInEx.Controllers
         //Logout
         public ActionResult Logout()
         {
-            Session["Company"] = null;
+            FormsAuthentication.SignOut();
             return RedirectToAction("Login", "User");
         }
 
