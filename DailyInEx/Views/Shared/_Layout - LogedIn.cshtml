@@ -21,12 +21,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="~/Income/Entry">Incomes<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Income entry", "Entry", "Income")</li>
                             <li>@Html.ActionLink("Approve income", "Approve", "Income")</li>
+                            <li>@Html.ActionLink("View monthly report", "Report", "Income")</li>
+
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -34,8 +36,11 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Expense entry", "Entry", "Expense")</li>
                             <li>@Html.ActionLink("Approve expense", "Approve", "Expense")</li>
+                            <li>@Html.ActionLink("View monthly report", "Report", "Expense")</li>
                         </ul>
                     </li>
+
+                    <li>@Html.ActionLink("Yearly Income and Expenses", "Yearly", "Report")</li>
 
                 </ul>
                 <div class="nav navbar-nav navbar-right">

@@ -3,12 +3,14 @@ using DailyInEx.Models;
 using DailyInEx.Models.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace DailyInEx.Controllers
 {
+    [Authorize]
     public class ExpenseController : Controller
     {
         public ActionResult Entry()
@@ -87,6 +89,43 @@ namespace DailyInEx.Controllers
             bool isUpdated = ExpenseManager.UpdateApprovedExpense(approvedIds);
 
             return RedirectToAction("Approve", "Expense");
+        }
+
+        public ActionResult Report(int? year, int? month)
+        {
+            int status = 0;
+
+            #region MonthList ViewBag.Months
+            ViewBag.Months = new SelectList(Enumerable.Range(1, 12).Select(x =>
+      new SelectListItem()
+      {
+          Text = CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedMonthNames[x - 1],
+          Value = x.ToString()
+      }), "Value", "Text");
+            #endregion
+            #region YearList ViewBag.Years
+            List<int> years = new List<int>();
+            for (int i = DateTime.Today.Year; i >= 2000; i--)
+            {
+                years.Add(i);
+            }
+            ViewBag.Years = years;
+            #endregion
+
+            if (year != null && month != null)
+            {
+                status = 1;
+                List<ExpenseMonthlyViewModel> expenses = ExpenseManager.LoadExpenseMonthly((int)year, (int)month);
+                if (expenses.Count > 0)
+                {
+                    ViewBag.ExpenseMonthlyList = expenses;
+                    ViewBag.Records = expenses.Count();
+                    status = 2;
+                }
+
+            }
+            ViewBag.Status = status;
+            return View();
         }
 
     }

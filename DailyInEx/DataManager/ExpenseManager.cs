@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using DailyInEx.Models;
 using DailyInEx.DataAccess;
+using DailyInEx.Models.ViewModel;
 
 namespace DailyInEx.DataManager
 {
@@ -42,5 +43,23 @@ namespace DailyInEx.DataManager
 
             return true;
         }
+
+        public static List<ExpenseMonthlyViewModel> LoadExpenseMonthly(int year, int month)
+        {
+            string sql = "select * from ExpenseMonthlyWithBank";
+            List<ExpenseMonthlyViewModel> expenses = SqlDataAccess.LoadData<ExpenseMonthlyViewModel>(sql);
+            List<ExpenseMonthlyViewModel> expenseInYearMonth = new List<ExpenseMonthlyViewModel>();
+            foreach (ExpenseMonthlyViewModel data in expenses)
+            {
+                if (data.Date.Month == month && data.Date.Year == year)
+                {
+                    expenseInYearMonth.Add(data);
+                }
+            }
+
+            return expenseInYearMonth;
+
+        }
+
     }
 }

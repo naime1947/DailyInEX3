@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Yearly";
+    Layout = "~/Views/Shared/_Layout - LogedIn.cshtml";
+}
+
+<h2>Yearly income, expense and profit view</h2>
+
+<form action="/Report/Yearly" method="get" class="form-inline" style="margin:30px auto">
+    <div class="form-group mb-4" style="margin-right: 15px">
+        <select id="year" name="year" class="form-control" required>
+            <option selected value="">-- Year --</option>
+            @foreach (var year in ViewBag.Years)
+            {
+                <option value="@year">@year</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-4">Show</button>
+</form>
+
+@if (ViewBag.DataList != null)
+{
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Month</th>
+                    <th scope="col">Income</th>
+                    <th scope="col">Expense</th>
+                    <th scope="col">Profit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 1;
+                    double TotalIncome = 0;
+                    double TotalExpense = 0;
+                    double TotalProfit = 0;
+                    foreach (DailyInEx.Models.ViewModel.MonthlyInExProfit data in ViewBag.DataList)
+                    {
+                        <tr>
+                            <th scope="row">@i</th>
+                            <td>@data.Month</td>
+                            <td>@data.MonthlyTotlaIncome</td>
+                            <td>@data.MonthlyTotalExpense</td>
+                            <td>@data.MonthlyProfit</td>
+                        </tr>
+                        i++;
+                        TotalIncome += data.MonthlyTotlaIncome;
+                        TotalExpense += data.MonthlyTotalExpense;
+                        TotalProfit += data.MonthlyProfit;
+                    }
+                    <tr class="text-black-50">
+                        <td></td>
+                        <td style="text-align:center"> Total : </td>
+                        <td>@TotalIncome</td>
+                        <td>@TotalExpense</td>
+                        <td>@TotalProfit</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+                    }
+

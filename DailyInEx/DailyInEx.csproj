@@ -155,6 +155,7 @@
     <Compile Include="Controllers\ExpenseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncomeController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="DataAccess\SqlDataAccess.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="DataManager\ExpenseManager.cs" />
     <Compile Include="DataManager\IncomeManager.cs" />
     <Compile Include="DataManager\LoginManager.cs" />
+    <Compile Include="DataManager\YearlyReportManager.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -173,9 +175,12 @@
     <Compile Include="Models\ExpenseModel.cs" />
     <Compile Include="Models\IncomeModel.cs" />
     <Compile Include="Models\ViewModel\CompanyViewModel.cs" />
+    <Compile Include="Models\ViewModel\ExpenseMonthlyViewModel.cs" />
     <Compile Include="Models\ViewModel\ExpenseViewModel.cs" />
+    <Compile Include="Models\ViewModel\IncomeMonthlyViewModel.cs" />
     <Compile Include="Models\ViewModel\IncomeViewModel.cs" />
     <Compile Include="Models\ViewModel\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModel\MonthlyInExProfit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +235,9 @@
     <Content Include="Views\Expense\Entry.cshtml" />
     <Content Include="Views\Income\Approve.cshtml" />
     <Content Include="Views\Expense\Approve.cshtml" />
+    <Content Include="Views\Income\Report.cshtml" />
+    <Content Include="Views\Expense\Report.cshtml" />
+    <Content Include="Views\Report\Yearly.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

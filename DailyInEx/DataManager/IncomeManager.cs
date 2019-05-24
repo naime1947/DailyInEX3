@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using DailyInEx.Models;
 using DailyInEx.DataAccess;
+using DailyInEx.Models.ViewModel;
 
 namespace DailyInEx.DataManager
 {
@@ -42,5 +43,23 @@ namespace DailyInEx.DataManager
 
             return true;
         }
+
+        public static List<IncomeMonthlyViewModel> LoadIncomeMonthly(int year, int month)
+        {
+            string sql = "select * from IncomeMonthlyWithBank";
+            List<IncomeMonthlyViewModel> incomes = SqlDataAccess.LoadData<IncomeMonthlyViewModel>(sql);
+            List<IncomeMonthlyViewModel> incomesInYearMonth = new List<IncomeMonthlyViewModel>();
+            foreach (IncomeMonthlyViewModel data in incomes)
+            {
+                if(data.Date.Month==month && data.Date.Year == year)
+                {
+                    incomesInYearMonth.Add(data);
+                }
+            }
+
+            return incomesInYearMonth;
+
+        }
+
     }
 }

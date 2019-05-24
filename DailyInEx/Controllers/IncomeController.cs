@@ -6,13 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using DailyInEx.DataManager;
 using DailyInEx.Models.ViewModel;
+using System.Globalization;
 
 namespace DailyInEx.Controllers
 {
     [Authorize]
     public class IncomeController : Controller
     {
-       
+
         [HttpGet]
         public ActionResult Entry()
         {
@@ -62,7 +63,7 @@ namespace DailyInEx.Controllers
             if (incomes.Count() > 0)
             {
                 ViewBag.UnApprovedIncome = incomes;
-                message = incomes.Count()+"Un approved incomes found";
+                message = incomes.Count() + "Un approved incomes found";
                 status = true;
             }
             else
@@ -78,7 +79,7 @@ namespace DailyInEx.Controllers
         [HttpPost]
         public ActionResult Approve(FormCollection Id)
         {
-           
+
             #region Getting Selected Id
             List<int> approvedIds = new List<int>();
             var arr = Id["Id"].ToString().Split(',');
@@ -89,11 +90,45 @@ namespace DailyInEx.Controllers
             #endregion
 
             bool isUpdated = IncomeManager.UpdateApprovedIncome(approvedIds);
-    
+
             return RedirectToAction("Approve", "Income");
         }
 
+        public ActionResult Report(int? year, int? month)
+        {
+            int status = 0;
+            
+            #region MonthList ViewBag.Months
+            ViewBag.Months = new SelectList(Enumerable.Range(1, 12).Select(x =>
+      new SelectListItem()
+      {
+          Text = CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedMonthNames[x - 1],
+          Value = x.ToString()
+      }), "Value", "Text");
+            #endregion
+            #region YearList ViewBag.Years
+            List<int> years = new List<int>();
+            for (int i = DateTime.Today.Year; i >= 2000; i--)
+            {
+                years.Add(i);
+            }
+            ViewBag.Years = years;
+            #endregion
 
+            if(year!=null && month!= null){
+                status = 1;
+                List<IncomeMonthlyViewModel> incomes = IncomeManager.LoadIncomeMonthly((int)year, (int)month);
+                if (incomes.Count > 0)
+                {
+                    ViewBag.IncomeMonthlyList = incomes;
+                    ViewBag.Records = incomes.Count();
+                    status = 2;
+                }
+                
+            }
+            ViewBag.Status = status;
+            return View();
+        }
 
     }
 }
