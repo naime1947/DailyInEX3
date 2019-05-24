@@ -32,7 +32,7 @@ namespace DailyInEx.DataManager
                     aMonthlyInExProfit.MonthlyTotalExpense += data.Amount;
                 }
 
-                aMonthlyInExProfit.Month = DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(month);
+                aMonthlyInExProfit.Month = DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(month)+"-"+year;
                 monthlyIncomeList.Add(aMonthlyInExProfit);
             }
 

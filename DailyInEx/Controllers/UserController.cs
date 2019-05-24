@@ -61,6 +61,7 @@ namespace DailyInEx.Controllers
             {
                 FormsAuthentication.SetAuthCookie(data.CompanyName, false);
                 TempData["UserName"] = data.CompanyName;
+                Session["User"] = data;
                 return RedirectToAction("Index", "User");
             }
 

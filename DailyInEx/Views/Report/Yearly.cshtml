@@ -9,7 +9,15 @@
 <form action="/Report/Yearly" method="get" class="form-inline" style="margin:30px auto">
     <div class="form-group mb-4" style="margin-right: 15px">
         <select id="year" name="year" class="form-control" required>
-            <option selected value="">-- Year --</option>
+            @if (ViewBag.Year != null)
+            {
+                <option selected value="@ViewBag.Year">@ViewBag.Year</option>
+            }
+            else
+            {
+                <option selected value="">-- Year --</option>
+            }
+
             @foreach (var year in ViewBag.Years)
             {
                 <option value="@year">@year</option>
@@ -22,6 +30,10 @@
 
 @if (ViewBag.DataList != null)
 {
+    <div style="margin:20px auto">
+        <h2> Year: @ViewBag.Year</h2>
+    </div>
+
     <div>
         <table class="table table-striped">
             <thead>
@@ -53,7 +65,7 @@
                         TotalExpense += data.MonthlyTotalExpense;
                         TotalProfit += data.MonthlyProfit;
                     }
-                    <tr class="text-black-50">
+                    <tr class="modal-title">
                         <td></td>
                         <td style="text-align:center"> Total : </td>
                         <td>@TotalIncome</td>
@@ -63,6 +75,9 @@
                 }
             </tbody>
         </table>
+        <div>
+            <a role="button" class="btn btn-success btn-block" href="~/Report/YearlyReportPdf?year=@ViewBag.Year"> Generate Pdf Report</a>
+        </div>
     </div>
                     }
 

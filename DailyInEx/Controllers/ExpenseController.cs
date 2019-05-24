@@ -71,6 +71,7 @@ namespace DailyInEx.Controllers
             ViewBag.Message = message;
             ViewBag.Status = status;
             return View();
+            
         }
 
         [HttpPost]
